@@ -1,0 +1,3 @@
+rootProject.name='KNetworkLib'
+include ':app'
+include ':app:knetworklib'
