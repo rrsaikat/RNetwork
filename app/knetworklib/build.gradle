@@ -2,12 +2,32 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
 
 ext {
-    PUBLISH_GROUP_ID = 'com.rezwan.knetworklib'
-    PUBLISH_ARTIFACT_ID = 'knetwork'
-    PUBLISH_VERSION = '1.0'
+    bintrayRepo = 'RNetwork' //repo name in bintray dashboard
+    bintrayName = 'com.rezwan.knetworklib'   // package name of the bintary repo
+    libraryName = 'knetworklib' //module name in android studio project
+
+    publishedGroupId = 'com.rezwan.knetworklib'
+    artifact = 'knetworklib'     // Has to be same as your library module name
+    libraryVersion = '1.0'
+
+    libraryDescription = 'A light weight live connection status library using rxnetwork and crouton.'
+    // Your github repo link
+    siteUrl = 'https://github.com/rrsaikat/RNetwork'
+    gitUrl = 'https://github.com/rrsaikat/RNetwork.git'
+    githubRepository= 'rrsaikat/RNetwork'
+
+    developerId = 'rrsaikat'
+    developerName = 'rrsaikat'
+    developerEmail = 'rrsaikat88@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
 
@@ -49,4 +69,12 @@ dependencies {
     }
 }
 
-apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+repositories {
+    mavenCentral()
+}
+
+
+if (project.rootProject.file('local.properties').exists()){
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+}
