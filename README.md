@@ -1,10 +1,6 @@
 ## RNetwork
 A light weight live internet connection status library using rxnetwork and crouton.
 
-
-### License
-
-
 License
 -----------------
 
