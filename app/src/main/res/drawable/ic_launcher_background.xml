@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+bintray.user=rrsaikat
+bintray.apikey=985a8708ceeb8c2140617ad132f798955f9416be
+
+
+
+xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"

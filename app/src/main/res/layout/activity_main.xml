@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,12 +7,78 @@
     android:id="@+id/main_view"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:id="@+id/crouton_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mtoolbar" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mtoolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        android:background="@color/colorAccent"/>
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-</FrameLayout>
+    <View
+        android:id="@+id/bottombar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/crouton_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/crouton_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+
+    <Switch
+        android:id="@+id/switchWifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOff="OFF"
+        android:textOn="ON"
+        android:text="WIFI ON"
+        android:padding="20dp"
+        android:switchMinWidth="40dp"
+        android:switchPadding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottombar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crouton_top" />
+
+    <CheckBox
+        android:id="@+id/checkBoxTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show in top"
+        android:layoutDirection="rtl"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/switchWifi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crouton_top" />
+
+    <CheckBox
+        android:id="@+id/checkBoxBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show in bottom"
+        android:layoutDirection="rtl"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottombar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchWifi" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
