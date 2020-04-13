@@ -2,6 +2,7 @@
 ![Feature Image](https://repository-images.githubusercontent.com/250891537/077fef00-7d4d-11ea-9cd5-898435e61d2e)
 
 A light weight live internet connection status library using rxnetwork and crouton.
+
 <p align="start">
   <img src="https://github.com/rrsaikat/RNetwork/blob/master/app/top.gif" height="450" width="220"/>
   <img src="https://github.com/rrsaikat/RNetwork/blob/master/app/bottom.gif" height="450" width="220"/>
@@ -39,8 +40,19 @@ STEP 4: KNetwork.bind(this, lifecycle) - bind the targeted activity in which you
 
         KNetwork.bind(this, lifecycle)
                        .setConnectivityListener(this)
-                       
+                      
+                      
+Available additinal methods:
+-----------------
 
+    *  showKNDialog() - set true for show dialog when net connection goes off.
+    *  setConnectivityListener() - connected, disconnected callback into activity
+    *  setInAnimation() - custom animation setup
+    *  setOutAnimation() - custom animation setup
+    *  setViewGroupResId() - targeted viewgroup to show network status views.
+
+Example project is here for better understanding: 
+![GO TO Example](https://github.com/rrsaikat/RNetwork/blob/master/app/src/main/java/com/rezwan/example/MainActivity.kt)
         
 
 License
