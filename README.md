@@ -2,6 +2,9 @@
 ![Feature Image](https://repository-images.githubusercontent.com/250891537/077fef00-7d4d-11ea-9cd5-898435e61d2e)
 
 A light weight live internet connection status library using rxnetwork and crouton.
+<p align="start">
+  <img src="https://github.com/rrsaikat/ConnectionStatusLikeYoutube/blob/master/app/src/main/res/drawable/onlineStatus.gif" height="420" width="220"/>
+</p>
 
 License
 -----------------
