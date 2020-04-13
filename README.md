@@ -7,6 +7,42 @@ A light weight live internet connection status library using rxnetwork and crout
   <img src="https://github.com/rrsaikat/RNetwork/blob/master/app/bottom.gif" height="450" width="220"/>
 </p>
 
+
+How To
+-----------------
+How does another developer add this as a dependency?
+
+STEP 1:  Reference your Bintray repository into project-level build.gradle:    
+
+        allprojects {
+          repositories {
+            // ...
+            maven { url 'https://dl.bintray.com/rrsaikat/RNetwork' }
+          }
+        }
+        
+STEP 2: Reference the library itself in your module-level build.gradle:      
+
+        implementation 'com.rezwan.knetworklib:knetworklib:1.0.2'
+
+STEP 3: KNetwork.initialize(this) - must declare this into Application.
+
+        class App:Application() {
+            override fun onCreate() {
+                super.onCreate()
+                KNetwork.initialize(this)
+            }
+        }
+
+
+STEP 4: KNetwork.bind(this, lifecycle) - bind the targeted activity in which you want to show network status.
+
+        KNetwork.bind(this, lifecycle)
+                       .setConnectivityListener(this)
+                       
+
+        
+
 License
 -----------------
 
