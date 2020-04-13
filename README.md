@@ -3,7 +3,8 @@
 
 A light weight live internet connection status library using rxnetwork and crouton.
 <p align="start">
-  <img src="https://github.com/rrsaikat/RNetwork/blob/master/app/overall.gif" height="450" width="220"/>
+  <img src="https://github.com/rrsaikat/RNetwork/blob/master/app/top.gif" height="450" width="220"/>
+  <img src="https://github.com/rrsaikat/RNetwork/blob/master/app/bottom.gif" height="450" width="220"/>
 </p>
 
 License
