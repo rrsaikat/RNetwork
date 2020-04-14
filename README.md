@@ -58,6 +58,12 @@ Apps that are used this library:
 
 [![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=com.rezwan.routeradmin.wifisetup)
 
+## Author
+
+👤 **RRSaikat**
+
+- FaceBook: [@rrsaikat](https://www.facebook.com/engr.rezwan)
+
 
 License
 -----------------
