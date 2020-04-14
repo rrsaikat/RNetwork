@@ -40,6 +40,14 @@ STEP 4: KNetwork.bind(this, lifecycle) - bind the targeted activity in which you
 
         KNetwork.bind(this, lifecycle)
                        .setConnectivityListener(this)
+                       
+                       
+##NOTE:
+1. Enable java 8:
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+}
                       
                       
 Available additinal methods:
@@ -53,6 +61,19 @@ Available additinal methods:
 
 Example project is here for better understanding: 
 [GO TO Example](https://github.com/rrsaikat/RNetwork/blob/master/app/src/main/java/com/rezwan/example/MainActivity.kt)
+
+Proguard
+-----------------------
+    ################ rxjava2 ###########
+    -dontwarn java.util.concurrent.Flow*
+    ##### END ##############
+
+    ##ReactNetwork####
+    -dontwarn com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+    -dontwarn io.reactivex.functions.Function
+    -dontwarn rx.internal.util.**
+    -dontwarn sun.misc.Unsafe
+    ##END#####
         
 Apps that are used this library:
 
