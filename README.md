@@ -1,7 +1,7 @@
 ## RNetwork 
 ![Feature Image](https://repository-images.githubusercontent.com/250891537/077fef00-7d4d-11ea-9cd5-898435e61d2e)
 
-A light weight live internet connection status library using rxnetwork and crouton.
+A light weight and lifecycle awared live internet connection status library using rxnetwork and crouton.
 
 <p align="start">
   <img src="https://github.com/rrsaikat/RNetwork/blob/master/app/top.gif" height="450" width="220"/>
