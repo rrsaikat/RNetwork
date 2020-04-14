@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
@@ -15,7 +14,7 @@ ext {
     artifact = 'knetworklib'     // Has to be same as your library module name
     libraryVersion = '1.0.2'
 
-    libraryDescription = 'A light weight live connection status library using rxnetwork and crouton.'
+    libraryDescription = 'A light weight live connection status library using reactivenetwork and crouton.'
     // Your github repo link
     siteUrl = 'https://github.com/rrsaikat/RNetwork'
     gitUrl = 'https://github.com/rrsaikat/RNetwork.git'
@@ -36,10 +35,10 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 9
         targetSdkVersion 29
         versionCode 1
-        versionName "0.2"
+        versionName "0.3"
     }
 
     buildTypes {
@@ -57,7 +56,7 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.71"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.18'
@@ -71,10 +70,10 @@ dependencies {
 
 repositories {
     mavenCentral()
+    google()
 }
 
 
 if (project.rootProject.file('local.properties').exists()){
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-    apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+    apply from: 'publish.gradle'
 }
