@@ -1,4 +1,8 @@
 ## RNetwork 
+
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![API](https://img.shields.io/badge/API-11%2B-brightgreen.svg?style=plastic)](https://android-arsenal.com/api?level=11)
+
 ![Feature Image](https://repository-images.githubusercontent.com/250891537/077fef00-7d4d-11ea-9cd5-898435e61d2e)
 
 A light weight and lifecycle awared live internet connection status library using reactivenetwork and crouton.
