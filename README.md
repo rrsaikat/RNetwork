@@ -49,11 +49,11 @@ STEP 4: KNetwork.bind(this, lifecycle) - bind the targeted activity in which you
 ## NOTE:
 1. Enable java 8:
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-                      
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
                       
 Available additinal methods:
 -----------------
