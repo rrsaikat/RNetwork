@@ -52,7 +52,7 @@ Available additinal methods:
     *  setViewGroupResId() - targeted viewgroup to show network status views.
 
 Example project is here for better understanding: 
-![GO TO Example](https://github.com/rrsaikat/RNetwork/blob/master/app/src/main/java/com/rezwan/example/MainActivity.kt)
+[GO TO Example](https://github.com/rrsaikat/RNetwork/blob/master/app/src/main/java/com/rezwan/example/MainActivity.kt)
         
 
 License
