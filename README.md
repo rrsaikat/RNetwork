@@ -54,6 +54,10 @@ Available additinal methods:
 Example project is here for better understanding: 
 [GO TO Example](https://github.com/rrsaikat/RNetwork/blob/master/app/src/main/java/com/rezwan/example/MainActivity.kt)
         
+Apps that are used this library:
+
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=com.rezwan.routeradmin.wifisetup)
+
 
 License
 -----------------
