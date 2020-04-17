@@ -67,6 +67,10 @@ Available additinal methods:
 Example project is here for better understanding: 
 [GO TO Example](https://github.com/rrsaikat/RNetwork/blob/master/app/src/main/java/com/rezwan/example/MainActivity.kt)
 
+Video Sample (Installaion or setup)
+------------------
+[GO TO Tutorial](https://www.youtube.com/watch?v=v55QLdqhwKQ)
+
 Proguard
 -----------------------
     ################ rxjava2 ###########
