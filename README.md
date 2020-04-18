@@ -39,6 +39,15 @@ STEP 3: KNetwork.initialize(this) - must declare this into Application.
                 KNetwork.initialize(this)
             }
         }
+        
+   nb: Don't forget to register your custom Application class into your manifest.xml file.
+        
+            <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+              <application
+                android:name=".App"
+                 ....>
+               </application>
+            </manifest>
 
 
 STEP 4: KNetwork.bind(this, lifecycle) - bind the targeted activity in which you want to show network status.
@@ -55,6 +64,7 @@ STEP 4: KNetwork.bind(this, lifecycle) - bind the targeted activity in which you
             targetCompatibility JavaVersion.VERSION_1_8
         }
 
+
 Available additinal methods:
 -----------------
 
@@ -69,6 +79,10 @@ Example project is here for better understanding:
 
 Video Sample (Installaion or setup)
 ------------------
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=v55QLdqhwKQ
+" target="_blank"><img src="http://img.youtube.com/vi/v55QLdqhwKQ/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
 [GO TO Tutorial](https://www.youtube.com/watch?v=v55QLdqhwKQ)
 
 Proguard
