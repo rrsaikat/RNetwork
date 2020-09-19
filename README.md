@@ -3,6 +3,7 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-RNetwork-orange.svg?style=flat)](https://android-arsenal.com/details/1/8104)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![API](https://img.shields.io/badge/API-11%2B-brightgreen.svg?style=plastic)](https://android-arsenal.com/api?level=11)
+[ ![Download](https://api.bintray.com/packages/rrsaikat/RNetwork/com.rezwan.knetworklib/images/download.svg?version=1.0.4) ](https://bintray.com/rrsaikat/RNetwork/com.rezwan.knetworklib/1.0.4/link)
 
 ![Feature Image](https://repository-images.githubusercontent.com/250891537/077fef00-7d4d-11ea-9cd5-898435e61d2e)
 
