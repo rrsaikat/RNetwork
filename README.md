@@ -68,6 +68,9 @@ STEP 4: KNetwork.bind(this, lifecycle) - bind the targeted activity in which you
 Available additinal methods:
 -----------------
 
+    *  setSuccessLayout() - set your customized layout
+    *  setErrorLayout() - set your customized layout
+    *  showCroutons() - set false if you don't want to show croutons
     *  showKNDialog() - set true for show dialog when net connection goes off.
     *  setConnectivityListener() - connected, disconnected callback into activity
     *  setInAnimation() - custom animation setup
