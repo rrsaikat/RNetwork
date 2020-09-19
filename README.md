@@ -76,6 +76,17 @@ Available additinal methods:
     *  setInAnimation() - custom animation setup
     *  setOutAnimation() - custom animation setup
     *  setViewGroupResId() - targeted viewgroup to show network status views.
+    
+    
+Example:
+-----------------
+    KNetwork.bind(this, lifecycle)
+                    .showKNDialog(true)
+                    .showCroutons(true)
+                    .setViewGroupResId(R.id.crouton_top) // by default we will show our croutons into top
+                    .setSuccessLayout(R.layout.custom_success_layout)
+                    .setErrorLayout(R.layout.custom_error_layout)
+                    .setConnectivityListener(this)
 
 Example project is here for better understanding: 
 [GO TO Example](https://github.com/rrsaikat/RNetwork/blob/master/app/src/main/java/com/rezwan/example/MainActivity.kt)
