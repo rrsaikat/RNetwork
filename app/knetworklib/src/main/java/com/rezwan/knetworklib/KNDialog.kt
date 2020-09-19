@@ -3,6 +3,8 @@ package com.rezwan.knetworklib
 
 import android.app.Activity
 import android.content.DialogInterface
+import android.content.Intent
+import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 
 class KNDialog(activity: Activity) {
@@ -15,9 +17,10 @@ class KNDialog(activity: Activity) {
     private fun build(activity: Activity): AlertDialog {
         return AlertDialog.Builder(activity)
                 .setTitle("Opps")
-                .setMessage("You have no internet connection , please check your internet connection.")
+                .setMessage("You have no internet connection\nPlease check your internet connection or enable it from settings.")
                 .setCancelable(false)
-                .setPositiveButton(android.R.string.ok, OkClick(activity)).create()
+                .setPositiveButton(android.R.string.ok, OkClick(activity))
+                .create()
     }
 
     fun show() {
@@ -38,7 +41,5 @@ class KNDialog(activity: Activity) {
         override fun onClick(dialog: DialogInterface, which: Int) {
             dialog.dismiss()
         }
-
     }
-
 }

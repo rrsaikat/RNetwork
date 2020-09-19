@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorSuccess">#56A800</color>
-    <color name="colorError">#E81123</color>
+    <color name="colorSuccess">#03572D</color>
+    <color name="colorSuccessAlpha">#8803572D</color>
+    <color name="colorError">#DF2121</color>
+    <color name="colorErrorAlpha">#88DF2121</color>
 </resources>

@@ -1,9 +1,13 @@
 package com.rezwan.example
 
+import android.content.Intent
 import android.graphics.Color
 import android.net.wifi.WifiManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
+import android.widget.Button
 import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import com.rezwan.knetworklib.KNetwork
@@ -36,20 +40,57 @@ class MainActivity : AppCompatActivity(), KNetwork.OnNetWorkConnectivityListener
         *
         *  Available additinal features:
         *
+        *  setSuccessLayout() - set your customized layout
+        *  setErrorLayout() - set your customized layout
+        *  showCroutons() - set false if you don't want to show croutons
         *  showKNDialog() - set true for show dialog when net connection goes off.
-        *  setConnectivityListener() - connected, disconnected callback into activity
+        *  setConnectivityListener() - network status callbacks
         *  setInAnimation() - custom animation setup
         *  setOutAnimation() - custom animation setup
-        *  setViewGroupResId() - targeted viewgroup to show network status views.
+        *  setViewGroupResId() - targeted viewgroup to show network status view, if you donot declare any resID then by default crountons are shown intoon top of your layout.
         *
         */
         knRequest = KNetwork.bind(this, lifecycle)
-                .showKNDialog(false)
+                .showKNDialog(true)
+                .showCroutons(true)
+                .setViewGroupResId(R.id.crouton_top) // by default we will show our croutons into top
+                .setSuccessLayout(R.layout.custom_success_layout)
+                .setErrorLayout(R.layout.custom_error_layout)
                 .setConnectivityListener(this)
 
 
+        /*
+        *
+        * Get wifimanager
+        * set wifi enabled status into switch
+        *
+        * */
         wifimanager = getApplicationContext().getSystemService(WIFI_SERVICE) as WifiManager
         switchWifi.isChecked = wifimanager.isWifiEnabled
+
+
+        /*
+        *
+        * As isWifiEnabled is deprecated ,
+        * so due to unexpected behaviour we have to disable our wifi on/off functionality
+        *
+        * */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+            switchWifi.isEnabled = false
+        }
+
+
+        /*
+        *
+        * getErrorLayoutRes() - return view of error crouton layout
+        * open data conection settings activity
+        *
+        * */
+        knRequest.getErrorLayoutRes().findViewById<Button>(R.id.btn_settings)?.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_DATA_ROAMING_SETTINGS).setFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            ))
+        }
 
 
         /*
@@ -140,5 +181,9 @@ class MainActivity : AppCompatActivity(), KNetwork.OnNetWorkConnectivityListener
 
     override fun onNetDisConnected() {
         Log.e("main", "disconnected")
+    }
+
+    override fun onNetError(msg: String?) {
+        Log.e("main", msg ?: "")
     }
 }

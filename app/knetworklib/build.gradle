@@ -12,7 +12,7 @@ ext {
 
     publishedGroupId = 'com.rezwan.knetworklib'
     artifact = 'knetworklib'     // Has to be same as your library module name
-    libraryVersion = '1.0.2'
+    libraryVersion = '1.0.4'
 
     libraryDescription = 'A light weight live connection status library using reactivenetwork and crouton.'
     // Your github repo link
@@ -38,7 +38,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 30
         versionCode 1
-        versionName "0.3"
+        versionName "0.4"
     }
 
     buildTypes {

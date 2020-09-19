@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -12,6 +11,7 @@ import android.view.View
 import androidx.annotation.AnimRes
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import androidx.annotation.NonNull
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -27,14 +27,15 @@ import io.reactivex.schedulers.Schedulers
 object KNetwork {
     @SuppressLint("StaticFieldLeak") // application context is safe
     private var context: Context? = null
-    private var activity: Activity? = null
-    private var lifecycle: Lifecycle? = null
+    private lateinit var activity: Activity
+    private lateinit var lifecycle: Lifecycle
+    private val TAG: String = KNetwork::class.java.simpleName
 
 
     /**
      * Initialize KNetwork. This should be done in the application class.
      */
-    fun initialize(context: Context) {
+    fun initialize(@NonNull context: Context) {
         KNetwork.context = context.applicationContext
     }
 
@@ -73,6 +74,7 @@ object KNetwork {
 
     class Request : LifecycleObserver {
         private var viewGroupResId: Int = 0
+        private var mShowCroutons: Boolean = true
         private var mShowDialog: Boolean = false
         private var croutonSuccess: Crouton? = null
         private var croutonError: Crouton? = null
@@ -80,15 +82,24 @@ object KNetwork {
         private var errorLayout: Int = R.layout.crouton_error_layout
         private var animIn = R.anim.top_in
         private var animOut = R.anim.top_out
-
-        private var netWorkType: NetWorkType
-
+        private var netWorkType: NetWorkType = NetWorkType.ALL()
+        private var isSuccessShown: Boolean = false
         private var knDialog: KNDialog? = null
         private var mOnNetWorkConnectivityListener: OnNetWorkConnectivityListener? = null
-        private var isSuccessShown: Boolean = false
 
         private val disposable = CompositeDisposable()
-        private val configuration = Configuration.Builder().setInAnimation(animIn).setOutAnimation(animOut)
+
+        private val posView: View by lazy {
+            activity.layoutInflater.inflate(successLayout, null)
+        }
+        private val negView: View by lazy {
+            activity.layoutInflater.inflate(errorLayout, null)
+        }
+        private val configuration: Configuration.Builder by lazy {
+            Configuration.Builder()
+                    .setInAnimation(animIn)
+                    .setOutAnimation(animOut)
+        }
 
         private val CONFIGURATION_INFINITE = configuration
                 .setDuration(Configuration.DURATION_INFINITE)
@@ -98,21 +109,18 @@ object KNetwork {
                 .build()
 
         init {
-            this.netWorkType = NetWorkType.ALL()
-            this.knDialog = KNDialog(activity!!)
-            initListener()
-            lifecycle?.addObserver(this)
-        }
-
-        protected fun initListener() {
-            croutonError?.setOnClickListener {
-                activity?.startActivity(Intent(android.provider.Settings.ACTION_SETTINGS))
-            }
+            this.knDialog = KNDialog(activity)
+            lifecycle.addObserver(this)
         }
 
 
-        fun showKNDialog(isShow: Boolean): Request {
-            this.mShowDialog = isShow
+        fun showKNDialog(boolean: Boolean): Request {
+            this.mShowDialog = boolean
+            return this
+        }
+
+        fun showCroutons(boolean: Boolean): Request {
+            this.mShowCroutons = boolean
             return this
         }
 
@@ -121,14 +129,22 @@ object KNetwork {
             return this
         }
 
-        private fun setSuccessLayout(@LayoutRes layoutResId: Int): Request {
+        fun setSuccessLayout(@LayoutRes layoutResId: Int): Request {
             this.successLayout = layoutResId
             return this
         }
 
-        private fun setErrorLayout(@LayoutRes layoutResId: Int): Request {
+        fun setErrorLayout(@LayoutRes layoutResId: Int): Request {
             this.errorLayout = layoutResId
             return this
+        }
+
+        fun getSuccessLayoutRes(): View? {
+            return posView
+        }
+
+        fun getErrorLayoutRes(): View {
+            return negView
         }
 
         /*fun setNetWorkStatusType(netWorkType: NetWorkType): Request {
@@ -152,33 +168,33 @@ object KNetwork {
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_START)
-        fun onActivityStart() {
-            Log.e("KNetWork", "onActivityStart" + isSuccessShown)
+        private fun onActivityStart() {
+            Log.i(TAG, "onActivityStart " + isSuccessShown)
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
         private fun onActivityResume() {
             isSuccessShown = false
             start()
-            Log.e("KNetWork", "onActivityResume" + isSuccessShown)
+            Log.i(TAG, "onActivityResume " + isSuccessShown)
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
         private fun onActivityPause() {
-            Log.e("KNetWork", "onActivityPause")
+            Log.i(TAG, "onActivityPause")
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
         private fun onActivityStop() {
             clearDisposable()
-            Log.e("KNetWork", "onActivityStop")
+            Log.i(TAG, "onActivityStop")
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         private fun onActivityDestroy() {
             stop()
             clearAll()
-            Log.e("KNetWork", "onActivityDestroy")
+            Log.i(TAG, "onActivityDestroy")
         }
 
         fun setConnectivityListener(onNetWorkConnectivityListener: OnNetWorkConnectivityListener): Request {
@@ -187,34 +203,40 @@ object KNetwork {
         }
 
         fun start(): Request {
-            disposable.clear()
-            disposable.add(
-                    ReactiveNetwork
+            if (context != null) {
+                try {
+                    disposable.clear()
+                    disposable.add(ReactiveNetwork
                             .observeNetworkConnectivity(context)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe { connectivity: Connectivity? ->
-                                connectivity?.let {
-                                    onConnectivityChanged(connectivity)
-                                }
-                            })
-
+                            .subscribe({
+                                it?.let { onConnectivityChanged(it) }
+                            }, {
+                                mOnNetWorkConnectivityListener?.onNetError(it.localizedMessage)
+                            }))
+                } catch (ex: Exception) {
+                    mOnNetWorkConnectivityListener?.onNetError(ex.localizedMessage)
+                }
+            } else {
+                throw Exception("KNetwork.initialize(this) - don't forget to declare this into Application")
+            }
             return this
         }
 
 
-        fun clearAll(): Request {
+        private fun clearAll(): Request {
             clearDisposable()
             clearStackkedViews()
             return this
         }
 
-        fun clearDisposable(): Request {
+        private fun clearDisposable(): Request {
             disposable.clear()
             return this
         }
 
-        fun clearStackkedViews(): Request {
+        private fun clearStackkedViews(): Request {
             Crouton.cancelAllCroutons()
             Crouton.clearCroutonsForActivity(activity)
             return this
@@ -225,19 +247,18 @@ object KNetwork {
             return this
         }
 
-        fun onConnectivityChanged(connectivity: Connectivity): Request {
+        private fun onConnectivityChanged(connectivity: Connectivity): Request {
             //clearStackkedViews()
             croutonError?.hide()
             croutonSuccess?.hide()
             checkConnectivity(connectivity)
-
             return this
         }
 
-        fun checkConnectivity(conn: Connectivity): Request {
+        private fun checkConnectivity(conn: Connectivity): Request {
             Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 if (conn.available()) {
-                    Log.e("KNetWork", "conn.available()" + isSuccessShown)
+//                    Log.e("KNetWork", "conn.available()" + isSuccessShown)
                     mOnNetWorkConnectivityListener?.onNetConnected()
                     if (isSuccessShown) {
                         showAutoDialog(false)
@@ -268,38 +289,27 @@ object KNetwork {
 
 
         private fun showSuccessView(): Request {
-            configuration.setDuration(Configuration.DURATION_SHORT)
+            croutonSuccess = Crouton.make(activity, posView, viewGroupResId).apply {
+                setConfiguration(configuration.setDuration(Configuration.DURATION_SHORT)
+                        .build())
+            }
+            if (mShowCroutons) {
+                croutonSuccess?.show()
+            }
 
-            croutonSuccess = Crouton.make(activity, activity?.layoutInflater?.inflate(R.layout.crouton_success_layout, null), viewGroupResId)
-            croutonSuccess?.setConfiguration(configuration.build())
-            croutonSuccess?.show()
             return this
         }
 
         private fun showErrorView(): Request {
-            configuration.setDuration(Configuration.DURATION_INFINITE)
-
-            croutonError = Crouton.make(activity, activity?.layoutInflater?.inflate(R.layout.crouton_error_layout, null), viewGroupResId)
-            croutonError?.setConfiguration(configuration.build())
-            croutonError?.show()
+            croutonError = Crouton.make(activity, negView, viewGroupResId).apply {
+                setConfiguration(configuration.setDuration(Configuration.DURATION_INFINITE)
+                        .build())
+            }
+            if (mShowCroutons) {
+                croutonError?.show()
+            }
             return this
         }
-
-
-        private fun getLayoutRes(layoutType: LayoutType): View? {
-            when (layoutType) {
-                LayoutType.SUCCRESS() -> {
-                    return activity?.layoutInflater?.inflate(R.layout.crouton_success_layout, null)
-                }
-
-                LayoutType.ERROR() -> {
-                    return activity?.layoutInflater?.inflate(R.layout.crouton_error_layout, null)
-                }
-            }
-
-            return getLayoutRes(LayoutType.SUCCRESS())
-        }
-
     }
 
     internal sealed class LayoutType {
@@ -317,6 +327,7 @@ object KNetwork {
     interface OnNetWorkConnectivityListener {
         fun onNetConnected()
         fun onNetDisConnected()
+        fun onNetError(msg: String?)
     }
 
     @SuppressLint("PrivateApi")
