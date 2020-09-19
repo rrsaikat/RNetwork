@@ -114,6 +114,7 @@ class MainActivity : AppCompatActivity(), KNetwork.OnNetWorkConnectivityListener
     *  @method setWifiEnabled is deprecated, will remove soon after android P
     *
     */
+    @Suppress("DEPRECATION")
     private fun enableWifi() {
         with(wifimanager) {
             isWifiEnabled = true
@@ -126,6 +127,7 @@ class MainActivity : AppCompatActivity(), KNetwork.OnNetWorkConnectivityListener
      *  @method setWifiEnabled is deprecated, will remove soon after android P
      *
      */
+    @Suppress("DEPRECATION")
     private fun disableWifi() {
         with(wifimanager) {
             isWifiEnabled = false
