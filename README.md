@@ -29,7 +29,7 @@ STEP 1:  Reference your Bintray repository into project-level build.gradle:
         
 STEP 2: Reference the library itself in your module-level build.gradle:      
 
-        implementation 'com.rezwan.knetworklib:knetworklib:1.0.3'
+        implementation 'com.rezwan.knetworklib:knetworklib:1.0.4'
 
 STEP 3: KNetwork.initialize(this) - must declare this into Application.
 
