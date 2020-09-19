@@ -6,6 +6,6 @@ import com.rezwan.knetworklib.KNetwork
 class App:Application() {
     override fun onCreate() {
         super.onCreate()
-        KNetwork.initialize(this)
+        KNetwork.initialize(this) //Must be initialized
     }
 }
