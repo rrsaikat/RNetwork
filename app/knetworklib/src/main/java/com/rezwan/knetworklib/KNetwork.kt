@@ -6,6 +6,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.annotation.AnimRes
@@ -234,7 +235,7 @@ object KNetwork {
         }
 
         fun checkConnectivity(conn: Connectivity): Request {
-            Handler().postDelayed(Runnable {
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 if (conn.available()) {
                     Log.e("KNetWork", "conn.available()" + isSuccessShown)
                     mOnNetWorkConnectivityListener?.onNetConnected()

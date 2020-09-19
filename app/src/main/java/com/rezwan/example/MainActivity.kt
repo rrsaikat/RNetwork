@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), KNetwork.OnNetWorkConnectivityListener
             internetOnOffAction(buttonView, isChecked)
         }
 
-        checkBoxTop.setOnCheckedChangeListener { buttonView, isChecked ->
+        checkBoxTop.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 checkBoxBottom.isChecked = false
 
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), KNetwork.OnNetWorkConnectivityListener
             }
 
         }
-        checkBoxBottom.setOnCheckedChangeListener { buttonView, isChecked ->
+        checkBoxBottom.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 checkBoxTop.isChecked = false
 
